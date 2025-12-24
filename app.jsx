@@ -1,344 +1,388 @@
-import React, { useState, useEffect } from 'react';
-import { 
-  Shield, 
-  Zap, 
-  Globe, 
-  BarChart3, 
-  Layers, 
-  Users, 
-  ArrowRight, 
-  Flame, 
-  Coins, 
-  Lock, 
-  ChevronRight,
-  Menu,
-  X,
-  CheckCircle2,
-  ExternalLink,
-  Wallet
-} from 'lucide-react';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Syndicate Gateway | Web3-Native Payment Infrastructure</title>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    
+    <!-- Babel for JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Framer Motion -->
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
 
-const App = () => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+    <!-- Tailwind Config -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        syndicate: {
+                            50: '#f0f9ff',
+                            100: '#e0f2fe',
+                            500: '#0ea5e9',
+                            600: '#0284c7',
+                            900: '#0c4a6e',
+                            950: '#082f49',
+                        },
+                        dark: {
+                            bg: '#030712', // Slate 950 base
+                            card: '#111827', // Gray 900
+                            border: '#1f2937', // Gray 800
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const navLinks = [
-    { name: 'Solution', href: '#solution' },
-    { name: 'Architecture', href: '#architecture' },
-    { name: 'Tokenomics', href: '#tokenomics' },
-    { name: 'Roadmap', href: '#roadmap' },
-  ];
-
-  return (
-    <div className="min-h-screen bg-[#0a0b10] text-slate-200 font-sans selection:bg-indigo-500/30">
-      {/* Navigation */}
-      <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-[#0a0b10]/80 backdrop-blur-md border-b border-white/10 py-3' : 'bg-transparent py-6'}`}>
-        <div className="max-w-7xl mx-auto px-6 flex justify-between items-center">
-          <div className="flex items-center gap-2 group cursor-pointer">
-            <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20 group-hover:rotate-12 transition-transform">
-              <Shield className="text-white w-6 h-6" />
-            </div>
-            <span className="text-xl font-bold tracking-tight text-white">SYNDICATE<span className="text-indigo-500">GATEWAY</span></span>
-          </div>
-
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <a key={link.name} href={link.href} className="text-sm font-medium text-slate-400 hover:text-white transition-colors">{link.name}</a>
-            ))}
-            <button className="bg-white text-black px-5 py-2.5 rounded-full text-sm font-bold hover:bg-indigo-500 hover:text-white transition-all shadow-lg active:scale-95">
-              Whitepaper
-            </button>
-          </div>
-
-          {/* Mobile Toggle */}
-          <button className="md:hidden text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X /> : <Menu />}
-          </button>
-        </div>
-
-        {/* Mobile Menu */}
-        {isMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 w-full bg-[#0d0f16] border-b border-white/10 p-6 flex flex-col gap-4 animate-in slide-in-from-top duration-300">
-            {navLinks.map((link) => (
-              <a key={link.name} href={link.href} onClick={() => setIsMenuOpen(false)} className="text-lg font-medium">{link.name}</a>
-            ))}
-            <button className="bg-indigo-600 text-white w-full py-3 rounded-xl font-bold">Whitepaper</button>
-          </div>
-        )}
-      </nav>
-
-      {/* Hero Section */}
-      <section className="relative pt-40 pb-20 overflow-hidden">
-        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-indigo-600/20 blur-[120px] rounded-full" />
-        <div className="absolute bottom-[10%] right-[-5%] w-[30%] h-[30%] bg-purple-600/10 blur-[100px] rounded-full" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
         
-        <div className="max-w-7xl mx-auto px-6 relative z-10 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 text-indigo-400 text-xs font-bold mb-8 animate-bounce">
-            <span className="relative flex h-2 w-2">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-indigo-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-indigo-500"></span>
-            </span>
-            WEB3 NATIVE PAYMENT INFRASTRUCTURE
-          </div>
-          <h1 className="text-5xl md:text-7xl font-extrabold text-white mb-6 tracking-tight leading-tight">
-            Unifying Global Payments <br />
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-purple-400 to-indigo-600">
-              Through Protocol Trust.
-            </span>
-          </h1>
-          <p className="text-lg md:text-xl text-slate-400 max-w-3xl mx-auto mb-10 leading-relaxed">
-            A next-generation infrastructure designed for emerging markets. Transparent, trust-minimized, and community-driven.
-          </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button className="w-full sm:w-auto px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-2xl font-bold flex items-center justify-center gap-2 group transition-all">
-              Join Token Sale <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </button>
-            <button className="w-full sm:w-auto px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/10 text-white rounded-2xl font-bold transition-all">
-              Merchant Dashboard
-            </button>
-          </div>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030712;
+            color: #f8fafc;
+            overflow-x: hidden;
+        }
 
-          {/* Trusted Badges */}
-          <div className="mt-20 pt-10 border-t border-white/5">
-            <p className="text-xs font-bold text-slate-500 uppercase tracking-widest mb-6">Optimized for</p>
-            <div className="flex flex-wrap justify-center items-center gap-8 opacity-50 grayscale hover:grayscale-0 transition-all">
-              <div className="flex items-center gap-2 text-xl font-bold text-white"><Shield className="w-6 h-6"/> BASE</div>
-              <div className="flex items-center gap-2 text-xl font-bold text-white"><Layers className="w-6 h-6"/> ETHEREUM L2</div>
-              <div className="flex items-center gap-2 text-xl font-bold text-white"><Wallet className="w-6 h-6"/> USDC NATIVE</div>
-            </div>
-          </div>
-        </div>
-      </section>
+        .gradient-text {
+            background: linear-gradient(to right, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
 
-      {/* Stats/Problem Section */}
-      <section id="solution" className="py-24 bg-white/[0.02]">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid md:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">Breaking the Barrier for <span className="text-indigo-400">Emerging Markets.</span></h2>
-              <p className="text-slate-400 mb-8 text-lg">
-                Traditional payment providers centralize profits while externalizing risk. We replace opaque intermediaries with onchain revenue transparency.
-              </p>
-              <div className="space-y-4">
-                {[
-                  "Unified fiat + crypto gateway",
-                  "Modular API-first infrastructure",
-                  "Automated token burn mechanism",
-                  "Community-funded expansion models"
-                ].map((item, i) => (
-                  <div key={i} className="flex items-start gap-3">
-                    <CheckCircle2 className="text-indigo-500 w-6 h-6 mt-1" />
-                    <span className="text-slate-200 font-medium">{item}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="p-8 bg-gradient-to-b from-white/10 to-transparent rounded-3xl border border-white/10">
-                <div className="text-4xl font-extrabold text-white mb-2">100%</div>
-                <p className="text-sm text-slate-400 uppercase tracking-wider font-bold">Onchain Revenue</p>
-              </div>
-              <div className="p-8 bg-gradient-to-b from-white/10 to-transparent rounded-3xl border border-white/10 translate-y-8">
-                <div className="text-4xl font-extrabold text-white mb-2">0%</div>
-                <p className="text-sm text-slate-400 uppercase tracking-wider font-bold">Equity Issuance</p>
-              </div>
-              <div className="p-8 bg-gradient-to-b from-white/10 to-transparent rounded-3xl border border-white/10">
-                <div className="text-4xl font-extrabold text-white mb-2">40%</div>
-                <p className="text-sm text-slate-400 uppercase tracking-wider font-bold">Profit Burn</p>
-              </div>
-              <div className="p-8 bg-gradient-to-b from-white/10 to-transparent rounded-3xl border border-white/10 translate-y-8">
-                <div className="text-4xl font-extrabold text-white mb-2">L2</div>
-                <p className="text-sm text-slate-400 uppercase tracking-wider font-bold">Primary Scaling</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+        .glass-nav {
+            background: rgba(3, 7, 18, 0.7);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
 
-      {/* Architecture Section */}
-      <section id="architecture" className="py-24">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-white mb-4">Core Ecosystem Architecture</h2>
-            <p className="text-slate-400 max-w-2xl mx-auto">Built for scalability and modularity, Syndicate Gateway integrates with existing financial rails while leveraging the security of Ethereum.</p>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-6">
-            {[
-              { icon: <BarChart3 className="w-8 h-8"/>, title: "Merchant Dashboard", desc: "Real-time analytics, settlement tracking, and multi-currency management." },
-              { icon: <Zap className="w-8 h-8"/>, title: "Payment APIs", desc: "Modular SDKs for seamless integration into SaaS, Gaming, and E-commerce." },
-              { icon: <Globe className="w-8 h-8"/>, title: "Local PSP Mesh", desc: "Bridging banks in South Asia and SE Asia with global crypto liquidity." },
-              { icon: <Layers className="w-8 h-8"/>, title: "Settlement Layer", desc: "Instant crypto settlements in USDC/USDT via Layer-2 networks." },
-              { icon: <Shield className="w-8 h-8"/>, title: "Revenue Router", desc: "Smart contracts that automatically allocate profits to burn and rewards." },
-              { icon: <Users className="w-8 h-8"/>, title: "DAO Governance", desc: "Transparent voting on fee structures and treasury expansion." }
-            ].map((card, i) => (
-              <div key={i} className="group p-8 bg-white/5 hover:bg-white/[0.08] border border-white/10 rounded-3xl transition-all hover:-translate-y-1">
-                <div className="w-16 h-16 bg-indigo-500/10 rounded-2xl flex items-center justify-center text-indigo-500 mb-6 group-hover:bg-indigo-500 group-hover:text-white transition-colors">
-                  {card.icon}
-                </div>
-                <h3 className="text-xl font-bold text-white mb-3">{card.title}</h3>
-                <p className="text-slate-400 leading-relaxed text-sm">{card.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+        .glow-card {
+            box-shadow: 0 0 20px rgba(14, 165, 233, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .glow-card:hover {
+            box-shadow: 0 0 30px rgba(14, 165, 233, 0.15);
+            transform: translateY(-5px);
+            border-color: #38bdf8;
+        }
 
-      {/* Tokenomics Section */}
-      <section id="tokenomics" className="py-24 bg-[#0d0f16] border-y border-white/5">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <div className="inline-block px-4 py-1.5 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold mb-6 tracking-widest uppercase">
-                Native Asset: $SGT
-              </div>
-              <h2 className="text-4xl font-bold text-white mb-8">Empowering the <br />Network Economy.</h2>
-              <p className="text-slate-400 mb-10 text-lg">
-                SGT is a utility and governance token with a fixed supply of 1,000,000,000. It drives value through a sustainable deflationary model and protocol participation.
-              </p>
-              
-              <div className="space-y-6 mb-10">
-                <div className="flex gap-4 p-5 rounded-2xl bg-white/5 border border-white/10">
-                  <Flame className="text-orange-500 w-10 h-10 shrink-0" />
-                  <div>
-                    <h4 className="text-white font-bold mb-1">Deflationary Burn Engine</h4>
-                    <p className="text-sm text-slate-400">40% of all net platform revenue is used to buy back and burn $SGT from the market.</p>
-                  </div>
-                </div>
-                <div className="flex gap-4 p-5 rounded-2xl bg-white/5 border border-white/10">
-                  <Coins className="text-indigo-400 w-10 h-10 shrink-0" />
-                  <div>
-                    <h4 className="text-white font-bold mb-1">Protocol Rewards</h4>
-                    <p className="text-sm text-slate-400">40% of revenue flows to the reward pool for active $SGT stakers in USDC/ETH.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a; 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155; 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #475569; 
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
 
-            <div className="bg-white/5 rounded-[2.5rem] border border-white/10 p-8 md:p-12 relative overflow-hidden">
-              <div className="absolute top-0 right-0 p-4">
-                <div className="text-xs font-mono text-slate-500">CONTRACT: 0xSGT...BASE</div>
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-8 flex items-center gap-2">
-                <Layers className="text-indigo-500" /> Token Distribution
-              </h3>
-              <div className="space-y-6">
-                {[
-                  { label: "Public Sale", value: "35%", color: "bg-indigo-500" },
-                  { label: "Ecosystem & Rewards", value: "20%", color: "bg-purple-500" },
-                  { label: "Team (Vested)", value: "15%", color: "bg-blue-500" },
-                  { label: "Treasury", value: "15%", color: "bg-pink-500" },
-                  { label: "Liquidity", value: "10%", color: "bg-emerald-500" },
-                  { label: "Advisors", value: "5%", color: "bg-slate-500" },
-                ].map((item, i) => (
-                  <div key={i}>
-                    <div className="flex justify-between text-sm font-bold text-slate-300 mb-2">
-                      <span>{item.label}</span>
-                      <span>{item.value}</span>
+    <script type="text/babel">
+        const { useState, useEffect } = React;
+        const { motion, AnimatePresence } = window.Motion;
+        
+        // Icons
+        const Icons = {
+            ArrowRight: () => <i data-lucide="arrow-right"></i>,
+            Shield: () => <i data-lucide="shield-check"></i>,
+            Globe: () => <i data-lucide="globe"></i>,
+            Zap: () => <i data-lucide="zap"></i>,
+            PieChart: () => <i data-lucide="pie-chart"></i>,
+            Flame: () => <i data-lucide="flame"></i>,
+            Users: () => <i data-lucide="users"></i>,
+            Coins: () => <i data-lucide="coins"></i>,
+            Menu: () => <i data-lucide="menu"></i>,
+            X: () => <i data-lucide="x"></i>,
+            Layers: () => <i data-lucide="layers"></i>,
+            TrendingUp: () => <i data-lucide="trending-up"></i>
+        };
+
+        // --- Components ---
+
+        const Nav = () => {
+            const [isOpen, setIsOpen] = useState(false);
+
+            useEffect(() => {
+                lucide.createIcons();
+            }, [isOpen]);
+
+            const links = [
+                { name: "Solution", href: "#solution" },
+                { name: "Architecture", href: "#architecture" },
+                { name: "Tokenomics", href: "#tokenomics" },
+                { name: "Roadmap", href: "#roadmap" },
+            ];
+
+            return (
+                <nav className="fixed top-0 w-full z-50 glass-nav">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="flex items-center justify-between h-20">
+                            {/* Logo */}
+                            <div className="flex-shrink-0 flex items-center gap-2 cursor-pointer">
+                                <div className="w-8 h-8 bg-gradient-to-br from-cyan-500 to-blue-600 rounded-lg flex items-center justify-center">
+                                    <span className="font-bold text-white text-lg">S</span>
+                                </div>
+                                <span className="font-bold text-xl tracking-tight text-white">Syndicate Gateway</span>
+                            </div>
+
+                            {/* Desktop Menu */}
+                            <div className="hidden md:block">
+                                <div className="ml-10 flex items-baseline space-x-8">
+                                    {links.map((link) => (
+                                        <a key={link.name} href={link.href} className="text-gray-300 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                                            {link.name}
+                                        </a>
+                                    ))}
+                                    <button className="bg-white text-black px-5 py-2 rounded-full font-semibold hover:bg-gray-200 transition-colors">
+                                        Whitepaper
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Mobile menu button */}
+                            <div className="md:hidden">
+                                <button onClick={() => setIsOpen(!isOpen)} className="text-gray-400 hover:text-white">
+                                    {isOpen ? <Icons.X /> : <Icons.Menu />}
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
-                      <div className={`h-full ${item.color}`} style={{ width: item.value }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Roadmap Section */}
-      <section id="roadmap" className="py-24">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-20">
-            <h2 className="text-4xl font-bold text-white mb-4">The Growth Path</h2>
-            <p className="text-slate-400">Our strategic vision for the next 18 months.</p>
-          </div>
-
-          <div className="relative border-l border-white/10 ml-4 md:ml-0 md:left-1/2">
-            {[
-              { phase: "Phase 1", title: "Foundation", items: ["MVP Launch", "Merchant Onboarding", "Public Token Sale"], status: "active" },
-              { phase: "Phase 2", title: "Scale", items: ["Regional Expansion (South Asia)", "Affiliate Program", "DAO Activation"], status: "upcoming" },
-              { phase: "Phase 3", title: "Unification", items: ["Full Web3 Settlement", "Onchain Escrow", "Global Expansion"], status: "upcoming" }
-            ].map((step, i) => (
-              <div key={i} className={`mb-16 relative pl-8 md:pl-0 ${i % 2 === 0 ? 'md:translate-x-[-100%] md:pr-12 md:text-right' : 'md:translate-x-0 md:pl-12'}`}>
-                <div className={`absolute left-[-9px] md:left-[-9px] top-0 w-[18px] h-[18px] rounded-full border-4 border-[#0a0b10] ${step.status === 'active' ? 'bg-indigo-500 shadow-[0_0_15px_rgba(99,102,241,0.5)]' : 'bg-white/10'}`} />
-                <div className="bg-white/5 border border-white/10 p-6 rounded-2xl hover:bg-white/[0.08] transition-all">
-                  <span className="text-indigo-400 font-bold text-xs tracking-widest uppercase">{step.phase}</span>
-                  <h3 className="text-2xl font-bold text-white mt-1 mb-4">{step.title}</h3>
-                  <ul className={`space-y-2 text-slate-400 text-sm ${i % 2 === 0 ? 'md:flex md:flex-col md:items-end' : ''}`}>
-                    {step.items.map((item, j) => (
-                      <li key={j} className="flex items-center gap-2">
-                        {i % 2 === 0 ? (
-                          <>
-                            <span>{item}</span>
-                            <ChevronRight className="w-4 h-4 text-indigo-500 hidden md:block" />
-                          </>
-                        ) : (
-                          <>
-                            <ChevronRight className="w-4 h-4 text-indigo-500" />
-                            <span>{item}</span>
-                          </>
+                    {/* Mobile Menu */}
+                    <AnimatePresence>
+                        {isOpen && (
+                            <motion.div 
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                className="md:hidden bg-dark-bg border-b border-gray-800"
+                            >
+                                <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                                    {links.map((link) => (
+                                        <a key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="text-gray-300 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                                            {link.name}
+                                        </a>
+                                    ))}
+                                </div>
+                            </motion.div>
                         )}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+                    </AnimatePresence>
+                </nav>
+            );
+        };
 
-      {/* CTA Section */}
-      <section className="py-24 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="bg-gradient-to-br from-indigo-600 to-purple-700 rounded-[3rem] p-12 md:p-20 text-center relative overflow-hidden shadow-2xl shadow-indigo-500/20">
-            <div className="absolute inset-0 opacity-20" style={{backgroundImage: 'radial-gradient(circle at 2px 2px, white 1px, transparent 0)', backgroundSize: '40px 40px'}}></div>
-            <h2 className="text-4xl md:text-5xl font-extrabold text-white mb-6 relative z-10">Ready to build the future of <br />emerging market payments?</h2>
-            <p className="text-white/80 text-lg max-w-2xl mx-auto mb-10 relative z-10 font-medium">
-              Join the Syndicate Gateway ecosystem today and be part of a transparent, community-owned financial network.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4 relative z-10">
-              <button className="bg-white text-indigo-600 px-10 py-4 rounded-2xl font-bold text-lg hover:scale-105 transition-transform shadow-xl">
-                Become a Merchant
-              </button>
-              <button className="bg-indigo-900/40 text-white backdrop-blur-md border border-white/20 px-10 py-4 rounded-2xl font-bold text-lg hover:bg-indigo-900/60 transition-all">
-                Read the Whitepaper
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
+        const Hero = () => {
+            return (
+                <section className="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
+                    {/* Background Gradients */}
+                    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[500px] bg-blue-600/20 rounded-full blur-[120px] -z-10 opacity-50"></div>
+                    
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.8 }}
+                        >
+                            <span className="inline-block py-1 px-3 rounded-full bg-blue-900/30 border border-blue-700/50 text-blue-400 text-sm font-semibold mb-6">
+                                The Future of Web3 Payments
+                            </span>
+                            <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-6 leading-tight">
+                                Unifying Local & Global <br />
+                                <span className="gradient-text">Payment Rails</span>
+                            </h1>
+                            <p className="mt-4 max-w-2xl mx-auto text-xl text-gray-400 mb-10">
+                                Syndicate Gateway is a trust-minimized protocol built for emerging markets. 
+                                Accept crypto and fiat seamlessly while participating in a deflationary economy.
+                            </p>
+                            <div className="flex flex-col sm:flex-row justify-center gap-4">
+                                <button className="px-8 py-4 bg-gradient-to-r from-cyan-600 to-blue-600 rounded-full text-white font-bold text-lg hover:shadow-lg hover:shadow-cyan-500/25 transition-all flex items-center justify-center gap-2">
+                                    Launch App <Icons.ArrowRight />
+                                </button>
+                                <button className="px-8 py-4 bg-transparent border border-gray-700 rounded-full text-gray-300 font-semibold text-lg hover:border-gray-500 hover:text-white transition-all">
+                                    Read Documentation
+                                </button>
+                            </div>
+                        </motion.div>
 
-      {/* Footer */}
-      <footer className="py-20 border-t border-white/5 px-6">
-        <div className="max-w-7xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-12 mb-16">
-            <div className="col-span-2">
-              <div className="flex items-center gap-2 mb-6">
-                <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center">
-                  <Shield className="text-white w-5 h-5" />
-                </div>
-                <span className="text-xl font-bold tracking-tight text-white uppercase italic">Syndicate Gateway</span>
-              </div>
-              <p className="text-slate-500 max-w-sm mb-6 leading-relaxed">
-                Empowering the next billion users in emerging markets with trustless payment infrastructure. Built on Base.
-              </p>
-              <div className="flex gap-4">
-                {['Twitter', 'Discord', 'Telegram', 'Github'].map(platform => (
-                  <a key={platform} href="#" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-indigo-500 hover:text-white transition-all">
-                    <ExternalLink className="w-4 h-4" />
-                  </a>
-                ))}
-              </div>
-            </div>
-            <div>
-              <h4 className="text-white font-bold mb-6 uppercase tracking-widest text-xs">Resou
+                        {/* Stats Strip */}
+                        <motion.div 
+                            initial={{ opacity: 0, y: 40 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.4, duration: 0.8 }}
+                            className="mt-20 grid grid-cols-2 md:grid-cols-4 gap-8 border-t border-gray-800 pt-10"
+                        >
+                            {[
+                                { label: "Target Network", value: "Base (L2)" },
+                                { label: "Revenue Share", value: "80%" },
+                                { label: "Token Model", value: "Deflationary" },
+                                { label: "Security", value: "Audited" },
+                            ].map((stat, idx) => (
+                                <div key={idx}>
+                                    <div className="text-2xl md:text-3xl font-bold text-white">{stat.value}</div>
+                                    <div className="text-sm text-gray-500 uppercase tracking-wider mt-1">{stat.label}</div>
+                                </div>
+                            ))}
+                        </motion.div>
+                    </div>
+                </section>
+            );
+        };
+
+        const ProblemSolution = () => {
+            return (
+                <section id="solution" className="py-24 bg-dark-bg relative">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="text-center mb-16">
+                            <h2 className="text-3xl md:text-4xl font-bold mb-4">Bridging the Gap</h2>
+                            <p className="text-gray-400 max-w-2xl mx-auto">
+                                Traditional payment gateways centralize profit and externalize risk. Syndicate Gateway flips the model.
+                            </p>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-12">
+                            {/* Problem */}
+                            <motion.div 
+                                initial={{ opacity: 0, x: -50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                className="bg-red-900/10 border border-red-900/30 p-8 rounded-2xl"
+                            >
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="p-3 bg-red-500/10 rounded-lg text-red-500">
+                                        <Icons.X />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-red-400">The Problem</h3>
+                                </div>
+                                <ul className="space-y-4 text-gray-300">
+                                    <li className="flex items-start gap-3">
+                                        <span className="text-red-500 mt-1">•</span>
+                                        Fragmented payment gateways with high fees.
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <span className="text-red-500 mt-1">•</span>
+                                        Limited cross-border access for emerging markets.
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <span className="text-red-500 mt-1">•</span>
+                                        Centralized intermediaries hoarding revenue.
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <span className="text-red-500 mt-1">•</span>
+                                        Zero user participation in platform growth.
+                                    </li>
+                                </ul>
+                            </motion.div>
+
+                            {/* Solution */}
+                            <motion.div 
+                                initial={{ opacity: 0, x: 50 }}
+                                whileInView={{ opacity: 1, x: 0 }}
+                                viewport={{ once: true }}
+                                className="bg-emerald-900/10 border border-emerald-900/30 p-8 rounded-2xl"
+                            >
+                                <div className="flex items-center gap-3 mb-6">
+                                    <div className="p-3 bg-emerald-500/10 rounded-lg text-emerald-500">
+                                        <Icons.Shield />
+                                    </div>
+                                    <h3 className="text-2xl font-bold text-emerald-400">The Solution</h3>
+                                </div>
+                                <ul className="space-y-4 text-gray-300">
+                                    <li className="flex items-start gap-3">
+                                        <span className="text-emerald-500 mt-1">✓</span>
+                                        Unified Fiat + Crypto payment rails.
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <span className="text-emerald-500 mt-1">✓</span>
+                                        Onchain revenue transparency & distribution.
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <span className="text-emerald-500 mt-1">✓</span>
+                                        Modular API-first infrastructure.
+                                    </li>
+                                    <li className="flex items-start gap-3">
+                                        <span className="text-emerald-500 mt-1">✓</span>
+                                        Community-funded expansion via SGT token.
+                                    </li>
+                                </ul>
+                            </motion.div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        const Architecture = () => {
+            const features = [
+                { icon: <Icons.Layers />, title: "Merchant Dashboard", desc: "Real-time analytics, API key management, and settlement tracking." },
+                { icon: <Icons.Globe />, title: "Revenue Router", desc: "Smart contracts automatically split net revenue to Burn, Rewards, and Treasury." },
+                { icon: <Icons.Zap />, title: "Settlement Layer", desc: "Instant crypto settlement (USDC/USDT) with local fiat payout rails." },
+                { icon: <Icons.Users />, title: "DAO Governance", desc: "SGT holders vote on fee structures and regional expansion." },
+            ];
+
+            return (
+                <section id="architecture" className="py-24 border-t border-gray-900">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                        <div className="mb-16">
+                            <span className="text-blue-500 font-semibold tracking-wide uppercase">Infrastructure</span>
+                            <h2 className="text-3xl md:text-5xl font-bold mt-2">Product Architecture</h2>
+                        </div>
+                        
+                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                            {features.map((feature, idx) => (
+                                <motion.div 
+                                    key={idx}
+                                    initial={{ opacity: 0, y: 20 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    viewport={{ once: true }}
+                                    transition={{ delay: idx * 0.1 }}
+                                    className="bg-dark-card border border-dark-border p-6 rounded-xl glow-card hover:bg-gray-900"
+                                >
+                                    <div className="w-12 h-12 bg-blue-900/20 text-blue-400 rounded-lg flex items-center justify-center mb-4">
+                                        {feature.icon}
+                                    </div>
+                                    <h3 className="text-xl font-bold mb-2">{feature.title}</h3>
+                                    <p className="text-gray-400 text-sm leading-relaxed">{feature.desc}</p>
+                                </motion.div>
+                            ))}
+                        </div>
+                        
+                        <div className="mt-16 p-8 bg-gradient-to-r from-blue-900/20 to-purple-900/20 rounded-2xl border border-blue-900/30 text-center">
+                            <h3 className="text-2xl font-bold mb-4">Target Market Focus</h3>
+                            <div className="flex flex-wrap justify-center gap-4">
+                                {["SaaS Platforms", "Digital Freelancers", "Web3 Apps", "South Asia", "Southeast Asia"].map((tag) => (
+                                    <span key={tag} className="px-4 py-2 bg-black/40 border border-gray-700 rounded-full text-sm text-gray-300">
+                                        {tag}
+                                    </span>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+  
